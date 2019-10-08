@@ -23,11 +23,29 @@ docker exec -it nn_postgres psql -Upostgres -c 'CREATE DATABASE nn_sqlacodegen;'
 docker exec -it nn_postgres psql -Upostgres nn_sqlacodegen -c '
     DROP TABLE IF EXISTS customers;
     CREATE TABLE customers(
-        id   SERIAL,
+        id   SERIAL primary key,
         name TEXT, 
         dob  DATE, 
         updated_at TIMESTAMP
     );
 '
 
+```
+
+## install sqlacodegen
+ref. https://pypi.org/project/sqlacodegen/
+
+```bash
+: install python 3.6.x via pyenv ref. bit.ly/nnpipenv
+: install pipenv ref. bit.ly/nnpipenv
+pyenv local 3.6.9
+pipenv install sqlacodegen
+```
+
+
+## generate sqlalchemy model class
+ref. https://pypi.org/project/sqlacodegen/#example-usage
+
+```bash
+sqlacodegen postgresql://postgres:@localhost:54322/nn_sqlacodegen | tee customer.g.py  # .g. aka .generated.
 ```
